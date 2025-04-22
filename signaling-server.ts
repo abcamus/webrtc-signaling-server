@@ -185,6 +185,7 @@ wss.on('connection', (ws: WebSocket) => {
 
                 // 发送房间信息给新加入的peer
                 const roomPeers = Array.from(rooms.get(roomId)!)
+                    .filter(client => client.readyState === WebSocket.OPEN)
                     .map(client => peerIds.get(client))
                     .filter(id => id && id !== peerId);
 
