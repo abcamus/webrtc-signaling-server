@@ -1,8 +1,10 @@
 import { WebSocketServer, WebSocket } from 'ws';
 import http from 'http';
+import config from './config';
 
-const port = 1234;
-const host = '0.0.0.0';
+const port = config.port;
+const host = config.host;
+
 const rooms = new Map<string, Set<WebSocket>>();
 const peerRooms = new Map<WebSocket, string>();
 const peerIds = new Map<WebSocket, string>();
@@ -294,7 +296,7 @@ wss.on('connection', (ws: WebSocket) => {
         if (ws.readyState === WebSocket.OPEN) {
             ws.ping();
         }
-    }, 30000);
+    }, config.heartbeatInterval);
 
     ws.on('close', () => {
         const peerId = peerIds.get(ws);

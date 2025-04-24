@@ -4,8 +4,11 @@
   "description": "WebRTC signaling server",
   "main": "signaling-server.js",
   "scripts": {
+    "start": "node signaling-server.js",
+    "dev": "ts-node signaling-server.ts",
     "build": "tsc",
-    "start": "node signaling-server.js"
+    "docker:build": "docker build -t webrtc-signaling-server .",
+    "docker:run": "docker run -p 1234:1234 webrtc-signaling-server"
   },
   "dependencies": {
     "ws": "^8.13.0"
