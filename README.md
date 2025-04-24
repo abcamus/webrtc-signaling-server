@@ -16,7 +16,9 @@
 - npm 或 yarn
 - TypeScript
 
-## 安装步骤
+## 部署方式
+
+### 方式一：本地部署
 
 1. 克隆仓库：
 ```bash
@@ -35,16 +37,33 @@ npm run build
 ```bash
 npm start
 ```
-## 配置说明
-服务器默认配置：
 
-- 监听地址：0.0.0.0 (所有网络接口)
-- 端口：3000
-如需修改配置，请编辑 signaling-server.ts 文件中的相关常量：
-```typescript
-const HOST = '0.0.0.0';
-const PORT = 3000;
+### 方式二：Docker部署
+1. 构建镜像：
+```bash
+$ npm run docker:build
 ```
+2. 运行容器：
+```bash
+$ npm run docker:run
+```
+
+## 配置说明
+服务器支持以下环境变量配置：
+
+- PORT: 服务器端口号（默认：1234）
+- HOST: 监听地址（默认：0.0.0.0）
+- HEARTBEAT_INTERVAL: WebSocket 心跳间隔，单位毫秒（默认：30000）
+
+Docker 环境下自定义配置示例：
+```bash
+docker run -d -p 8080:1234 \
+  -e PORT=1234 \
+  -e HOST=0.0.0.0 \
+  -e HEARTBEAT_INTERVAL=30000 \
+  webrtc-signaling-server
+```
+
 
 ## macOS防火墙配置
 如果在macOS系统上运行，需要配置防火墙规则：
